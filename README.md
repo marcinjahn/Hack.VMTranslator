@@ -18,7 +18,7 @@ responsibilities of the solution are enclosed in their own classes.
 ## Usage
 
 In order to use it, you need to run the Hack.VMTranslator.CLI project 
-like this (assuming that you are in the `Hack.VMTranslator.CLI directory):
+like this (assuming that you are in the `Hack.VMTranslator.CLI` directory):
 
 ```sh
 dotnet run path/to/input.vm
