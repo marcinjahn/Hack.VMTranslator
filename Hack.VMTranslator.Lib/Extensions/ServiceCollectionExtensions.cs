@@ -1,6 +1,7 @@
 using System;
 using Hack.VMTranslator.Lib.Commands;
 using Hack.VMTranslator.Lib.Commands.Arithmetic;
+using Hack.VMTranslator.Lib.Commands.Branching;
 using Hack.VMTranslator.Lib.Commands.Logical;
 using Hack.VMTranslator.Lib.Commands.Relational;
 using Hack.VMTranslator.Lib.Commands.Stack;
@@ -52,6 +53,10 @@ namespace Hack.VMTranslator.Lib.Extensions
             services.AddSingleton<EqTranslator>();
             services.AddSingleton<GtTranslator>();
             services.AddSingleton<LtTranslator>();
+
+            services.AddTransient<LabelTranslator>();
+            services.AddTransient<GotoTranslator>();
+            services.AddTransient<IfGotoTranslator>();
 
             services.AddTransient<CommandTypeResolver>();
             services.AddTransient<MemorySegmentResolver>();

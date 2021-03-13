@@ -12,6 +12,9 @@ namespace Hack.VMTranslator.Lib.Commands
         Or,
         Not,
         Pop,
-        Push
+        Push,
+        Label,
+        Goto,
+        IfGoto
     }
 }

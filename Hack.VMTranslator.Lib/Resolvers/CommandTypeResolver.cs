@@ -26,6 +26,9 @@ namespace Hack.VMTranslator.Lib.Resolvers
                 "eq" => CommandType.Eq,
                 "gt" => CommandType.Gt,
                 "lt" => CommandType.Lt,
+                "label" => CommandType.Label,
+                "goto" => CommandType.Goto,
+                "if-goto" => CommandType.IfGoto,
                 _ => throw new ArgumentOutOfRangeException(nameof(line))
             };
         }

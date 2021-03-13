@@ -1,6 +1,7 @@
 using System;
 using System.Dynamic;
 using Hack.VMTranslator.Lib.Commands.Arithmetic;
+using Hack.VMTranslator.Lib.Commands.Branching;
 using Hack.VMTranslator.Lib.Commands.Logical;
 using Hack.VMTranslator.Lib.Commands.Relational;
 using Hack.VMTranslator.Lib.Commands.Stack;
@@ -32,6 +33,9 @@ namespace Hack.VMTranslator.Lib.Commands
                 CommandType.Not => Get<NotTranslator>(),
                 CommandType.Pop => Get<PopTranslator>(),
                 CommandType.Push => Get<PushTranslator>(),
+                CommandType.Label => Get<LabelTranslator>(),
+                CommandType.Goto => Get<GotoTranslator>(),
+                CommandType.IfGoto => Get<IfGotoTranslator>(),
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
