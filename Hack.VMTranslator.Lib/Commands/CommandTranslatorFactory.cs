@@ -1,5 +1,9 @@
 using System;
 using System.Dynamic;
+using Hack.VMTranslator.Lib.Commands.Arithmetic;
+using Hack.VMTranslator.Lib.Commands.Logical;
+using Hack.VMTranslator.Lib.Commands.Relational;
+using Hack.VMTranslator.Lib.Commands.Stack;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hack.VMTranslator.Lib.Commands

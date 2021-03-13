@@ -1,5 +1,4 @@
 using System;
-using Hack.VMTranslator.Lib.Commands.PopSegments;
 using Hack.VMTranslator.Lib.Input;
 using Hack.VMTranslator.Lib.Models;
 

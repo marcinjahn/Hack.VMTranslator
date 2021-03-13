@@ -1,7 +1,11 @@
 using System;
 using Hack.VMTranslator.Lib.Commands;
-using Hack.VMTranslator.Lib.Commands.PopSegments;
-using Hack.VMTranslator.Lib.Commands.PushSegments;
+using Hack.VMTranslator.Lib.Commands.Arithmetic;
+using Hack.VMTranslator.Lib.Commands.Logical;
+using Hack.VMTranslator.Lib.Commands.Relational;
+using Hack.VMTranslator.Lib.Commands.Stack;
+using Hack.VMTranslator.Lib.Commands.Stack.PopSegments;
+using Hack.VMTranslator.Lib.Commands.Stack.PushSegments;
 using Hack.VMTranslator.Lib.Input;
 using Hack.VMTranslator.Lib.Output;
 using Hack.VMTranslator.Lib.Resolvers;
