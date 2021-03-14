@@ -6,7 +6,7 @@ namespace Hack.VMTranslator.Lib.Resolvers
 {
     public class MemorySegmentResolver
     {
-        public MemorySegment Resolve(VMCodeLine line)
+        public MemorySegment Resolve(VmCodeLine line)
         {
             if (line.Code.Contains("local"))
             {
@@ -36,7 +36,7 @@ namespace Hack.VMTranslator.Lib.Resolvers
             {
                 return MemorySegment.That;
             }
-            else if (line.Code.Contains("constant"))
+            else if (line.Code.Contains("const"))
             {
                 return MemorySegment.Constant;
             }

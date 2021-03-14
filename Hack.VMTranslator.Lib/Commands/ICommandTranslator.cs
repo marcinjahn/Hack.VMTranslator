@@ -5,6 +5,6 @@ namespace Hack.VMTranslator.Lib.Commands
 {
     public interface ICommandTranslator
     {
-        IOutputCode Translate(VMCodeLine vmCommand);
+        IOutputCode Translate(VmCodeLine vmCommand);
     }
 }

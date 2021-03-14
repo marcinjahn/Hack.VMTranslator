@@ -1,27 +1,22 @@
-using System.Collections.Generic;
-using Microsoft.Extensions.Options;
+using Hack.VMTranslator.Lib.Extensions;
+using Hack.VMTranslator.Lib.Input;
+using Hack.VMTranslator.Lib.Models;
 
 namespace Hack.VMTranslator.Lib.Commands.Stack.PopSegments
 {
-    public class PopStaticTranslator : PushPopTranslatorBase
+    public class PopStaticTranslator : ICommandTranslator
     {
-        private readonly PopStaticTranslatorOptions _options;
-
-        public PopStaticTranslator(IOptions<PopStaticTranslatorOptions> options)
+        public IOutputCode Translate(VmCodeLine vmCommand)
         {
-            _options = options.Value;
-        }
-
-        protected override IEnumerable<string> GetAsmLines(string argument)
-        {
-            return new[]
+            var argument = vmCommand.GetSecondArgument();
+            return new AsmCode(new[]
             {
                 $"@{Constants.StackPointer}",
                 "AM=M-1",
                 "D=M",
-                $"@{_options.FileName}.{argument}",
+                $"@{vmCommand.FileName}.{argument}",
                 "M=D"
-            };
+            });
         }
     }
 }

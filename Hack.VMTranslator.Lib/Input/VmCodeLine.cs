@@ -3,15 +3,19 @@ using System.Collections.Generic;
 
 namespace Hack.VMTranslator.Lib.Input
 {
-    public class VMCodeLine : IInputCodeLine
+    public class VmCodeLine : IInputCodeLine
     {
-        public VMCodeLine(string code)
+        
+        public VmCodeLine(string code, string fileName = null)
         {
             Code = code ?? throw new ArgumentNullException(nameof(code));
+            FileName = fileName;
         }
         
         public string Code { get; }
-        public void AddTo(ICollection<VMCodeLine> lines)
+        public string FileName { get; set; }
+
+        public void AddTo(ICollection<VmCodeLine> lines)
         {
             lines.Add(this);
         }

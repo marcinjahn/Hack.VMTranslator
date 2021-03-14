@@ -7,7 +7,7 @@ namespace Hack.VMTranslator.Lib.Resolvers
 {
     public class CommandTypeResolver
     {
-        public CommandType Resolve(VMCodeLine line)
+        public CommandType Resolve(VmCodeLine line)
         {
             if (line == null) throw new ArgumentNullException(nameof(line));
             
@@ -29,6 +29,9 @@ namespace Hack.VMTranslator.Lib.Resolvers
                 "label" => CommandType.Label,
                 "goto" => CommandType.Goto,
                 "if-goto" => CommandType.IfGoto,
+                "function" => CommandType.Function,
+                "call" => CommandType.Call,
+                "return" => CommandType.Return,
                 _ => throw new ArgumentOutOfRangeException(nameof(line))
             };
         }

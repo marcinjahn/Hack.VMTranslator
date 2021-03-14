@@ -15,6 +15,9 @@ namespace Hack.VMTranslator.Lib.Commands
         Push,
         Label,
         Goto,
-        IfGoto
+        IfGoto,
+        Function,
+        Call,
+        Return
     }
 }

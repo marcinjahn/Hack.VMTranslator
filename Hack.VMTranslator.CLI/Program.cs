@@ -1,7 +1,10 @@
 ﻿using System;
+using System.CommandLine;
+using System.CommandLine.Invocation;
 using System.IO;
 using System.Threading.Tasks;
 using Hack.VMTranslator.Lib.Extensions;
+using Hack.VMTranslator.Lib.Output;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -13,9 +16,8 @@ namespace Hack.VMTranslator.CLI
         {
             try
             {
-                VerifyArgs(args);
-                var builder = GetHostBuilder(args);
-                await builder.RunConsoleAsync(options => options.SuppressStatusMessages = true);
+                var command = GetCommand();
+                await command.InvokeAsync(args);
             }
             catch (Exception e)
             {
@@ -24,45 +26,53 @@ namespace Hack.VMTranslator.CLI
             }
         }
         
-        private static IHostBuilder GetHostBuilder(string[] args)
+        private static IHostBuilder GetHostBuilder(Options options)
         {
-            return Host.CreateDefaultBuilder(args)
-                .ConfigureServices((hostContext, services) =>
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices((_, services) =>
                 {
-                    services.AddCoreServices(GetInputFileName(args));
-                    services.AddInputSupport(args[0]);
+                    services.AddCoreServices(options.IncludeBootstrap);
+                    services.AddInputSupport();
                     services.AddOutputSupport();
                     services.AddHostedService<HostedService>();
                     services.Configure<HostedServiceOptions>(o =>
-                        o.OutputPath = GetOutputPath(args));
+                    {
+                        o.InputPath = options.InputPath;
+                        o.OutputPath = options.OutputFile.FullName;
+                    });
                 });
         }
 
-        private static string GetInputFileName(string[] args)
+        private static RootCommand GetCommand()
         {
-            return new FileInfo(args[0]).Name;
-        }
-        
-        private static string GetOutputPath(string[] args)
-        {
-            if (!args[0].EndsWith(".vm"))
+            // Create a root command with some options
+            var rootCommand = new RootCommand
             {
-                throw new Exception("Input file needs to have '.vm' extension");
-            }
-            return args[0].Replace(".vm", ".asm");
-        }
+                new Argument<FileSystemInfo>(
+                    "input",
+                    "A path to a single VM file or a directory containing 1 or many VM files to translate into Assembler code"),
+                new Option<FileInfo>(
+                    new[] {"--output", "-o"},
+                    () => null,
+                    "A result file to create"),
+                new Option<bool>(
+                    new[] {"--include-bootstrap", "-b"},
+                    () => true,
+                    "Decides whether bootstrap (initialization) code should be included in the Assembler code"),
+            };
 
-        private static void VerifyArgs(string[] args)
-        {
-            if (args.Length != 1)
-            {
-                throw new Exception("Wrong input");
-            }
+            rootCommand.Description = "Nand2tetris VM Translator CLI";
 
-            if (!File.Exists(args[0]))
+            // Note that the parameters of the handler method are matched according to the names of the options
+            rootCommand.Handler = CommandHandler.Create((Func<FileSystemInfo, FileInfo, bool, Task>)(async (input, outputFile, includeBootstrap) =>
             {
-                throw new Exception("File does not exist");
-            }
+                outputFile ??= OutputUtilities.GetOutputFileInfo(input); 
+                var options = new Options(input, outputFile, includeBootstrap);
+                var builder = GetHostBuilder(options);
+                await builder.RunConsoleAsync(o => o.SuppressStatusMessages = true);
+            }));
+
+            return rootCommand;
         }
     }
 }

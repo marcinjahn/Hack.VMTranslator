@@ -1,6 +1,6 @@
 namespace Hack.VMTranslator.Lib.Input
 {
-    public class VMCodeLoaderOptions
+    public class VmCodeLoaderOptions
     {
         public string InputPath { get; set; }
     }

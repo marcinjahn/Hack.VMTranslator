@@ -7,7 +7,7 @@ namespace Hack.VMTranslator.Lib.Commands.Stack
 {
     public abstract class PushPopTranslatorBase : ICommandTranslator
     {
-        public IOutputCode Translate(VMCodeLine vmCommand)
+        public IOutputCode Translate(VmCodeLine vmCommand)
         {
             var argument = vmCommand.GetSecondArgument();
             return new AsmCode(GetAsmLines(argument));

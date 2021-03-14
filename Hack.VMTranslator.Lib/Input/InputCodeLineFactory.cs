@@ -2,9 +2,9 @@ using System;
 
 namespace Hack.VMTranslator.Lib.Input
 {
-    public class LineCleaner
+    public class InputCodeLineFactory
     {
-        public IInputCodeLine Clean(string line)
+        public IInputCodeLine GetCodeLine(string line, string fileName)
         {
             var trimmed = line.Trim();
             var indexOfComment = line.IndexOf("//", StringComparison.Ordinal);
@@ -19,11 +19,11 @@ namespace Hack.VMTranslator.Lib.Input
             }
             else if (indexOfComment > 0)
             {
-                return Clean(line.Substring(0, indexOfComment));
+                return GetCodeLine(line.Substring(0, indexOfComment), fileName);
             }
             else
             {
-                return new VMCodeLine(trimmed);
+                return new VmCodeLine(trimmed, fileName);
             }
         }
     }

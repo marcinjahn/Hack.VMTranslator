@@ -1,33 +1,28 @@
-using System.Collections.Generic;
-using Microsoft.Extensions.Options;
+using Hack.VMTranslator.Lib.Extensions;
+using Hack.VMTranslator.Lib.Input;
+using Hack.VMTranslator.Lib.Models;
 
 namespace Hack.VMTranslator.Lib.Commands.Stack.PushSegments
 {
-    public class PushStaticTranslator : PushPopTranslatorBase
+    public class PushStaticTranslator : ICommandTranslator
     {
-        private readonly PushStaticTranslatorOptions _options;
-
-        public PushStaticTranslator(IOptions<PushStaticTranslatorOptions> options)
+        public IOutputCode Translate(VmCodeLine vmCommand)
         {
-            _options = options.Value;
-        }
+            var argument = vmCommand.GetSecondArgument();
 
-
-        protected override IEnumerable<string> GetAsmLines(string argument)
-        {
-            return new[]
+            return new AsmCode(new[]
             {
                 $"@{Constants.StackPointer}",
                 "D=M",
                 "M=M+1",
                 "@R13",
                 "M=D",
-                $"@{_options.FileName}.{argument}",
+                $"@{vmCommand.FileName}.{argument}",
                 "D=M",
                 "@R13",
                 "A=M",
                 "M=D"
-            };
+            });
         }
     }
 }

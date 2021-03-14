@@ -6,7 +6,7 @@ namespace Hack.VMTranslator.Lib.Commands.Branching
 {
     public class GotoTranslator : ICommandTranslator
     {
-        public IOutputCode Translate(VMCodeLine vmCommand)
+        public IOutputCode Translate(VmCodeLine vmCommand)
         {
             var labelName = vmCommand.GetFirstArgument();
             return new AsmCode(new[]

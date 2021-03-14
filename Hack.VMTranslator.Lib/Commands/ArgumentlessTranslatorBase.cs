@@ -6,7 +6,7 @@ namespace Hack.VMTranslator.Lib.Commands
 {
     public abstract class ArgumentlessTranslatorBase : ICommandTranslator
     {
-        public IOutputCode Translate(VMCodeLine vmCommand)
+        public IOutputCode Translate(VmCodeLine vmCommand)
         {
             return new AsmCode(GetAsmLines());
         }

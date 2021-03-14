@@ -17,7 +17,7 @@ namespace Hack.VMTranslator.Lib.Commands.Stack
             _typeResolver = typeResolver ?? throw new ArgumentNullException(nameof(typeResolver));
         }
 
-        public IOutputCode Translate(VMCodeLine vmCommand)
+        public IOutputCode Translate(VmCodeLine vmCommand)
         {
             var type = _typeResolver.Resolve(vmCommand);
             var translator = _factory.GetTranslator(type);

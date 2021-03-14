@@ -13,7 +13,7 @@ namespace Hack.VMTranslator.Lib.Commands
             _innerTranslator = innerTranslator ?? throw new ArgumentNullException(nameof(innerTranslator));
         }
 
-        public IOutputCode Translate(VMCodeLine vmCommand)
+        public IOutputCode Translate(VmCodeLine vmCommand)
         {
             var commentOutput = new AsmCode(new[] {$"// {vmCommand.Code}"});
             return commentOutput.AppendCode(_innerTranslator.Translate(vmCommand));
