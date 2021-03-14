@@ -1,15 +1,16 @@
 # nand2tetris HACK VM Translator
 
 This is a .NET C# implementation of the nand2tetris Hack Plaform 
-VM Translator. It takes `.vm` (Hack virtual machine code) file as 
+VM Translator. It takes `.vm` (Hack virtual machine code) file(s) as 
 an input and turns it into an `.asm` (Hack assembly code).
 
 ## Projects
 
 The solution consists of 2 projects:
 
-Hack.VMTranslator.Lib - all services and models that power the solution
-Hack.VMTranslator.CLI - an actual console application that makes use of 
+- **Hack.VMTranslator.Lib** - all services and models that power the solution
+
+- **Hack.VMTranslator.CLI** - an actual console application that makes use of 
 Hack.VMTranslator.Lib to do the VM code -> Assembly translation job
 
 The code is written in an object-oriented way, so various 
@@ -44,10 +45,10 @@ The only required argument is `input`, which is described above. If no `-o`
 - if an input is a path to a single file, the output will be in the same
   directory as the input file, with the same name, but different extension (asm)
 - if an input is a path to a directory containing VM files, the output file will
-  be plaved in that directory, and the name will be in a format `<director
+  be plaved in that directory, and the name will be in a format `<directory
   name>.asm`.
 
-You can decided whether you want to add bootstrap (nitialization code that sets
+You can decide whether you want to add bootstrap (initialization code that sets
 up Stack Pointer, and calls "Sys.init") or not using the `-b true/false` flag.
 By default, the bootstrap code will be generated.
 
